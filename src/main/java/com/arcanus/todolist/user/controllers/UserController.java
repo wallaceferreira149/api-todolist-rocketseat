@@ -4,7 +4,6 @@ import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +12,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.arcanus.todolist.user.dtos.CreateUserDTO;
 import com.arcanus.todolist.user.dtos.UserDTO;
-import com.arcanus.todolist.user.entity.User;
 import com.arcanus.todolist.user.useCases.CreateUserUseCase;
 
 @RestController
@@ -23,10 +21,6 @@ public class UserController {
   @Autowired
   private CreateUserUseCase createUserUseCase;
 
-  @GetMapping
-  public void create(@RequestBody User user) {
-
-  }
 
   @PostMapping
   public ResponseEntity<UserDTO> create(@RequestBody CreateUserDTO dto) {

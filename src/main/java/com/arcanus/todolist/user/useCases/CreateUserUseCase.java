@@ -11,6 +11,8 @@ import com.arcanus.todolist.user.entity.User;
 import com.arcanus.todolist.user.exceptions.UserAlreadyExistsException;
 import com.arcanus.todolist.user.repository.UserRepository;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
+
 @Service
 public class CreateUserUseCase {
 
@@ -19,13 +21,16 @@ public class CreateUserUseCase {
 
   public UserDTO execute(CreateUserDTO dto) {
     Optional<User> checkUser = userRepository.findByUsername(dto.username());
-    if (checkUser != null) {
+    if (checkUser.isPresent() != false) {
       throw new UserAlreadyExistsException("username já existe.");
     }
+
     User entity = new User();
     entity.setUsername(dto.username());
     entity.setName(dto.name());
-    entity.setPassword(dto.password());
+
+    String hash = BCrypt.withDefaults().hashToString(10, dto.password().toCharArray());
+    entity.setPassword(hash);
 
     userRepository.save(entity);
 
