@@ -35,6 +35,9 @@ public class User {
   @CreationTimestamp
   private Instant createdAt;
 
+  // @OneToMany(mappedBy="")
+  // private Set<Task> tasks;
+
   @Override
   public boolean equals(Object o) {
     if (o == this)
